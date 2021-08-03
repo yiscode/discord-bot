@@ -18,3 +18,4 @@ async def on_message(message):
     await message.channel.send(a)
 keep_alive()
 client.run(os.getenv('TOKEN'))
+#TOKEN is enviroment variable
