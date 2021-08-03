@@ -2,6 +2,8 @@ import discord
 import os
 import random
 from keep_alive import keep_alive
+from dice import dice
+import re
 client = discord.Client()
 @client.event
 async def on_ready():
@@ -13,9 +15,8 @@ async def on_message(message):
     return
   if message.content.startswith('hello'):
     await message.channel.send('hello!!!!')
-  if message.content.startswith('1D10'):
-    a=random.randint(1,10)
-    await message.channel.send(a)
+  if re.match('\dD\d\d\d',message.content) or re.match('\dD\d\d',message.content) or re.match('\dD\d',message.content):
+    await message.channel.send(dice(message))
 keep_alive()
 client.run(os.getenv('TOKEN'))
 #TOKEN is enviroment variable
