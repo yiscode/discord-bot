@@ -3,6 +3,7 @@ import os
 import random
 from keep_alive import keep_alive
 from dice import dice
+from dice import dice_level as dv
 import re
 client = discord.Client()
 @client.event
@@ -11,12 +12,14 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+  message.content = message.content.upper()
   if message.author == client.user:
     return
-  if message.content.startswith('hello'):
-    await message.channel.send('hello!!!!')
   if re.match('\dD\d\d\d',message.content) or re.match('\dD\d\d',message.content) or re.match('\dD\d',message.content):
     await message.channel.send(dice(message))
+  if re.match('1DLV',message.content):
+    
+    await message.channel.send(dv(message))
 keep_alive()
 client.run(os.getenv('TOKEN'))
 #TOKEN is enviroment variable
