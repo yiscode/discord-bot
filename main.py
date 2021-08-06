@@ -4,6 +4,7 @@ import random
 from keep_alive import keep_alive
 from dice import dice
 from dice import dice_level as dv
+from dice import dice_tarot as dt
 import re
 client = discord.Client()
 @client.event
@@ -20,6 +21,9 @@ async def on_message(message):
   if re.match('1DLV',message.content):
     
     await message.channel.send(dv(message))
+  if re.match('1DTA',message.content):
+    
+    await message.channel.send(dt(message))
 keep_alive()
 client.run(os.getenv('TOKEN'))
 #TOKEN is enviroment variable
