@@ -2,6 +2,7 @@
 import re
 from random import randint
 def dice(message):
+
   if re.match('\dD\d\d\d',message.content):
     result=re.match('\dD\d\d\d',message.content).group()
   elif re.match('\dD\d\d',message.content):
@@ -12,7 +13,8 @@ def dice(message):
   for a in range(int(result[0])):
     rstring.append(randint(1,int(result[2:])))
   tostring1=[str(i) for i in rstring]
-  return ','.join(tostring1)
+  return '+'.join(tostring1)
+
 def dice_level(message):
   level_list = ['EX','S','A','B','C','D','E']
   return level_list[randint(0,6)]
@@ -22,6 +24,39 @@ def dice_tarot(message):
   level_list = ['EX','S','A','B','C','D','E']
 
   return str(tarot_list[randint(0,21)]) + "  ,  " + str(two_side[randint(0,1)]) + "  ,  " + str(level_list[randint(0,6)])
+def dice_person(message):
+  chaos_list = ['秩序','中立','混沌']
+  evil_list =['善','中庸','惡']
+  
+
+  return str(chaos_list[randint(0,2)]) + "  ,  " + str(evil_list[randint(0,2)])
+def change_message(string):
+  
+  if re.search(r'(\d+D\d+)',string):
+    results=re.findall(r'(\d+D\d+)',string)
+    rk = re.split(r'(\d+D\d+)',string)
+    index_d=[]
+    for x in results:
+      index_d.append(rk.index(x))
+    for y in range(len(results)):
+      result2=re.split(r'(D)',results[y])
+      stringnm=''
+      suml=0
+      for t in range(int(result2[0])):
+        rant=randint(1,int(result2[2]))
+        stringnm+=str(str(rant))
+        suml+=rant
+        if t<int(result2[0])-1: 
+          stringnm+='+'
+          
+      rk[index_d[y]]=f'【{results[y]}】:{suml}({stringnm})'
+      
+      
+      
+        
+    
+    
+  return(''.join(rk))
   
 
 
